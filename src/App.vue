@@ -19,29 +19,27 @@
       <button class="btn primary" @click.prevent="addBlock" :disabled="inputText.length < 4">Добавить</button>
     </form>
 
-    <div class="card card-w70" >
+    <div class="card card-w70">
       <h3 v-if="compList.length === 0">Добавьте первый блок, чтобы увидеть результат</h3>
       <template v-else v-for="(item, idx) in compList" :key="idx">
-       <component :is="item.name" :text="item.text"></component>
-     </template>
+        <component :is="item.name" :text="item.text"></component>
+      </template>
     </div>
   </div>
   <div class="container">
     <p>
-      <button class="btn primary" >Загрузить комментарии</button>
+      <button class="btn primary" @click="loadComments">Загрузить комментарии</button>
     </p>
     <div class="card">
       <h2>Комментарии</h2>
+      <div class="loader" v-if="loading"></div>
       <ul class="list">
-        <li class="list-item">
-          <div>
-            <p><strong>test@microsoft.com</strong></p>
-            <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi, reiciendis.</small>
-          </div>
-        </li>
+        <app-comment v-for="{email, body, id} in response"
+                     :body="body"
+                     :email="email"
+                     :key="id"></app-comment>
       </ul>
     </div>
-<!--    <div class="loader"></div>-->
   </div>
 </template>
 
@@ -50,25 +48,45 @@ import AppTitle from '@/AppTitle'
 import AppAvatar from '@/AppAvatar'
 import AppSubtitle from '@/AppSubtitle'
 import AppText from '@/AppText'
+import AppComment from '@/AppComment'
 
 export default {
   data() {
     return {
       selected: 'title',
       inputText: '',
-      compList: []
+      compList: [],
+      response: [],
+      loading: false
     }
   },
   methods: {
-    addBlock() {
-      this.compList.push({ name: 'app-' + this.selected, text: this.inputText })
+    addBlock () {
+      this.compList.push({
+        name: 'app-' + this.selected,
+        text: this.inputText
+      })
       this.inputText = ''
       this.selected = 'title'
+    },
+    async loadComments () {
+      this.loading = true
+      const res = await fetch('https://jsonplaceholder.typicode.com/comments?_limit=42', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      this.response = await res.json()
+      this.loading = false
     }
   },
-  components: { AppTitle, AppAvatar, AppSubtitle, AppText }
+  components: {
+    AppTitle,
+    AppAvatar,
+    AppSubtitle,
+    AppText,
+    AppComment
+  }
 }
 </script>
-
-<style>
-</style>
