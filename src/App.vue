@@ -3,7 +3,7 @@
     <form class="card card-w30">
       <div class="form-control">
         <label for="type">Тип блока</label>
-        <select id="type">
+        <select id="type" v-model="selected">
           <option value="title">Заголовок</option>
           <option value="subtitle">Подзаголовок</option>
           <option value="avatar">Аватар</option>
@@ -13,10 +13,10 @@
 
       <div class="form-control">
         <label for="value">Значение</label>
-        <textarea id="value" rows="3"></textarea>
+        <textarea id="value" rows="3" v-model="inputText"></textarea>
       </div>
 
-      <button class="btn primary">Добавить</button>
+      <button class="btn primary" :disabled="inputText.length < 4">Добавить</button>
     </form>
 
     <div class="card card-w70">
@@ -46,12 +46,18 @@
         </li>
       </ul>
     </div>
-    <div class="loader"></div>
+<!--    <div class="loader"></div>-->
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      selected: 'title',
+      inputText: ''
+    }
+  }
 
 }
 </script>
