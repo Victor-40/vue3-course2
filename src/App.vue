@@ -21,8 +21,8 @@
 
     <div class="card card-w70" >
       <h3 v-if="compList.length === 0">Добавьте первый блок, чтобы увидеть результат</h3>
-      <template v-else v-for="item in compList" :key="item">
-       <component :is="item"></component>
+      <template v-else v-for="(item, idx) in compList" :key="idx">
+       <component :is="item.name" :text="item.text"></component>
      </template>
     </div>
   </div>
@@ -56,36 +56,19 @@ export default {
     return {
       selected: 'title',
       inputText: '',
-      // compList: [
-      //   'app-header',
-      //   'app-avatar',
-      //   'app-subtitle',
-      //   'app-text'
-      // ],
       compList: []
     }
   },
   methods: {
     addBlock() {
-      this.compList.push('app-' + this.selected)
+      this.compList.push({ name: 'app-' + this.selected, text: this.inputText })
       this.inputText = ''
       this.selected = 'title'
     }
   },
   components: { AppTitle, AppAvatar, AppSubtitle, AppText }
-
 }
 </script>
 
 <style>
-  .avatar {
-    display: flex;
-    justify-content: center;
-  }
-
-  .avatar img {
-    width: 150px;
-    height: auto;
-    border-radius: 50%;
-  }
 </style>

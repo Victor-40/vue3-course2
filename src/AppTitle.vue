@@ -1,10 +1,15 @@
 <template>
-  <h1>Резюме Nickname</h1>
+  <h1>
+    {{ text }}
+  </h1>
 </template>
 
 <script>
 export default {
-  name: 'AppHeader'
+  name: 'AppHeader',
+  props: {
+    text: String
+  }
 }
 </script>
 
