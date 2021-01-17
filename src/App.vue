@@ -16,20 +16,19 @@
         <textarea id="value" rows="3" v-model="inputText"></textarea>
       </div>
 
-      <button class="btn primary" :disabled="inputText.length < 4">Добавить</button>
+      <button class="btn primary" @click.prevent="addBlock" :disabled="inputText.length < 4">Добавить</button>
     </form>
 
-    <div class="card card-w70">
-      <app-header></app-header>
-      <app-avatar></app-avatar>
-      <app-subtitle></app-subtitle>
-      <app-text></app-text>
-      <h3>Добавьте первый блок, чтобы увидеть результат</h3>
+    <div class="card card-w70" >
+      <h3 v-if="compList.length === 0">Добавьте первый блок, чтобы увидеть результат</h3>
+      <template v-else v-for="item in compList" :key="item">
+       <component :is="item"></component>
+     </template>
     </div>
   </div>
   <div class="container">
     <p>
-      <button class="btn primary">Загрузить комментарии</button>
+      <button class="btn primary" >Загрузить комментарии</button>
     </p>
     <div class="card">
       <h2>Комментарии</h2>
@@ -47,7 +46,7 @@
 </template>
 
 <script>
-import AppHeader from '@/AppHeader'
+import AppTitle from '@/AppTitle'
 import AppAvatar from '@/AppAvatar'
 import AppSubtitle from '@/AppSubtitle'
 import AppText from '@/AppText'
@@ -56,10 +55,24 @@ export default {
   data() {
     return {
       selected: 'title',
-      inputText: ''
+      inputText: '',
+      // compList: [
+      //   'app-header',
+      //   'app-avatar',
+      //   'app-subtitle',
+      //   'app-text'
+      // ],
+      compList: []
     }
   },
-  components: { AppHeader, AppAvatar, AppSubtitle, AppText }
+  methods: {
+    addBlock() {
+      this.compList.push('app-' + this.selected)
+      this.inputText = ''
+      this.selected = 'title'
+    }
+  },
+  components: { AppTitle, AppAvatar, AppSubtitle, AppText }
 
 }
 </script>
