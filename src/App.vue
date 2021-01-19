@@ -44,11 +44,11 @@
 </template>
 
 <script>
-import AppTitle from '@/AppTitle'
-import AppAvatar from '@/AppAvatar'
-import AppSubtitle from '@/AppSubtitle'
-import AppText from '@/AppText'
-import AppComment from '@/AppComment'
+import AppTitle from '@/components/AppTitle'
+import AppAvatar from '@/components/AppAvatar'
+import AppSubtitle from '@/components/AppSubtitle'
+import AppText from '@/components/AppText'
+import AppComment from '@/components/AppComment'
 
 export default {
   data() {
