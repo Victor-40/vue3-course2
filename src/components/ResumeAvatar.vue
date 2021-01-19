@@ -1,12 +1,12 @@
 <template>
   <div class="avatar">
-    <img :src="text">
+    <img :src="text" alt="img">
   </div>
 </template>
 
 <script>
 export default {
-  name: 'AppAvatar',
+  name: 'ResumeAvatar',
   props: {
     text: String
   }

@@ -1,12 +1,16 @@
 <template>
-  <h1>{{ text }}</h1>
+  <p>{{ text }}</p>
 </template>
 
 <script>
 export default {
-  name: 'AppHeader',
+  name: 'ResumeText',
   props: {
     text: String
   }
 }
 </script>
+
+<style scoped>
+
+</style>

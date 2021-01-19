@@ -18,13 +18,7 @@
 
       <button class="btn primary" @click.prevent="addBlock" :disabled="inputText.length < 4">Добавить</button>
     </form>
-
-    <div class="card card-w70">
-      <h3 v-if="compList.length === 0">Добавьте первый блок, чтобы увидеть результат</h3>
-      <template v-else v-for="(item, idx) in compList" :key="idx">
-        <component :is="item.name" :text="item.text"></component>
-      </template>
-    </div>
+    <resume :complist="compList"></resume>
   </div>
   <div class="container">
     <p>
@@ -44,11 +38,8 @@
 </template>
 
 <script>
-import AppTitle from '@/components/AppTitle'
-import AppAvatar from '@/components/AppAvatar'
-import AppSubtitle from '@/components/AppSubtitle'
-import AppText from '@/components/AppText'
 import AppComment from '@/components/AppComment'
+import Resume from '@/components/Resume'
 
 export default {
   data() {
@@ -63,7 +54,7 @@ export default {
   methods: {
     addBlock () {
       this.compList.push({
-        name: 'app-' + this.selected,
+        name: 'resume-' + this.selected,
         text: this.inputText
       })
       this.inputText = ''
@@ -82,11 +73,8 @@ export default {
     }
   },
   components: {
-    AppTitle,
-    AppAvatar,
-    AppSubtitle,
-    AppText,
-    AppComment
+    AppComment,
+    Resume
   }
 }
 </script>

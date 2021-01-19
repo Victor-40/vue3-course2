@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'AppSubtitle',
+  name: 'ResumeSubtitle',
   props: {
     text: String
   }
