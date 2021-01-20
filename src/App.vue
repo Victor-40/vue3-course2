@@ -20,25 +20,11 @@
     </form>
     <resume :complist="compList"></resume>
   </div>
-  <div class="container">
-    <p>
-      <button class="btn primary" @click="loadComments">Загрузить комментарии</button>
-    </p>
-    <div class="card">
-      <h2>Комментарии</h2>
-      <div class="loader" v-if="loading"></div>
-      <ul class="list">
-        <app-comment v-for="{email, body, id} in response"
-                     :body="body"
-                     :email="email"
-                     :key="id"></app-comment>
-      </ul>
-    </div>
-  </div>
+  <comments></comments>
 </template>
 
 <script>
-import AppComment from '@/components/AppComment'
+import Comments from '@/components/Comments'
 import Resume from '@/components/Resume'
 
 export default {
@@ -46,9 +32,7 @@ export default {
     return {
       selected: 'title',
       inputText: '',
-      compList: [],
-      response: [],
-      loading: false
+      compList: []
     }
   },
   methods: {
@@ -59,21 +43,10 @@ export default {
       })
       this.inputText = ''
       this.selected = 'title'
-    },
-    async loadComments () {
-      this.loading = true
-      const res = await fetch('https://jsonplaceholder.typicode.com/comments?_limit=42', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      this.response = await res.json()
-      this.loading = false
     }
   },
   components: {
-    AppComment,
+    Comments,
     Resume
   }
 }
